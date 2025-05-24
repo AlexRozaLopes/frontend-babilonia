@@ -1,0 +1,39 @@
+<div class="min-h-screen flex items-center justify-center bg-[#FAF3E0]">
+  <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm">
+
+    <!-- Logo -->
+    <div class="flex flex-col items-center mb-6">
+      <img src="/logo-favicon.png" alt="logo" class="size-26">
+      <h1 class="mt-4 text-2xl font-bold text-[#4E342E]">Babilônia Finance</h1>
+      <p class="text-sm text-[#4E342E] text-center">
+        Esqueceu sua senha?<br>Enviaremos um link para seu email.
+      </p>
+    </div>
+
+    <!-- Formulário -->
+    <form (ngSubmit)="onSubmit()">
+      <div class="space-y-4">
+
+        <div>
+          <label class="block text-sm font-medium text-[#4E342E]">Email</label>
+          <input type="email" [(ngModel)]="email" name="email" required
+                 class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#00ACC1]">
+        </div>
+
+        <button type="submit"
+                class="w-full bg-[#00ACC1] hover:bg-[#00838F] text-white py-2 rounded-xl font-semibold transition">
+          Recuperar Senha
+        </button>
+
+        <div class="text-center">
+          <p class="text-sm text-[#4E342E]">
+            Lembrou sua senha?
+            <a href="/login" class="text-[#F4B400] hover:underline font-medium">Entrar</a>
+          </p>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>
