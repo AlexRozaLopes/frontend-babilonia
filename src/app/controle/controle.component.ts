@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './controle.component.html',
 })
 export class ControleComponent {
-  // Dados de controle financeiro
+  // Dados
   controle = [
     { nome: 'Alimentação', valor: 1200, data: '2025-05-20' },
     { nome: 'Transporte', valor: 600, data: '2025-05-21' },
@@ -30,6 +30,9 @@ export class ControleComponent {
   nome = '';
   valor: number | null = null;
   data = '';
+
+  // Edição
+  editIndex: number | null = null;
 
   // Filtros
   filtroNome = '';
@@ -45,6 +48,7 @@ export class ControleComponent {
     this.atualizarGraficos();
   }
 
+  // 🔍 Filtragem dinâmica
   get controleFiltrado() {
     return this.controle.filter(item => {
       const nomeFiltra = this.filtroNome ? item.nome.toLowerCase().includes(this.filtroNome.toLowerCase()) : true;
@@ -55,21 +59,58 @@ export class ControleComponent {
     });
   }
 
-  adicionarItem() {
+  // ➕ Adicionar ou Editar
+  adicionarOuEditarItem() {
     if (this.nome && this.valor !== null && this.data) {
-      this.controle.push({ nome: this.nome, valor: this.valor, data: this.data });
-      this.nome = '';
-      this.valor = null;
-      this.data = '';
+      if (this.editIndex !== null) {
+        // Edição
+        this.controle[this.editIndex] = {
+          nome: this.nome,
+          valor: this.valor,
+          data: this.data
+        };
+        this.editIndex = null;
+      } else {
+        // Adicionar
+        this.controle.push({
+          nome: this.nome,
+          valor: this.valor,
+          data: this.data
+        });
+      }
+
+      this.limparFormulario();
       this.atualizarGraficos();
     }
   }
 
+  // ✏️ Iniciar Edição
+  editarItem(index: number) {
+    const item = this.controle[index];
+    this.nome = item.nome;
+    this.valor = item.valor;
+    this.data = item.data;
+    this.editIndex = index;
+  }
+
+  // ❌ Remover
   removerItem(index: number) {
     this.controle.splice(index, 1);
+    if (this.editIndex === index) {
+      this.limparFormulario();
+    }
     this.atualizarGraficos();
   }
 
+  // 🔄 Resetar formulário
+  limparFormulario() {
+    this.nome = '';
+    this.valor = null;
+    this.data = '';
+    this.editIndex = null;
+  }
+
+  // 📊 Atualizar Gráficos
   atualizarGraficos() {
     const dados = this.controleFiltrado;
 

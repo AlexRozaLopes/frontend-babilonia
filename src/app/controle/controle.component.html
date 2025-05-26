@@ -5,7 +5,9 @@
 
     <!-- 🟧 Formulário -->
     <div class="bg-white p-6 rounded-2xl shadow-md mb-8">
-      <h2 class="text-xl font-semibold text-[#00ACC1] mb-4">Adicionar Gasto</h2>
+      <h2 class="text-xl font-semibold text-[#00ACC1] mb-4">
+        {{ editIndex !== null ? 'Editar Gasto' : 'Adicionar Gasto' }}
+      </h2>
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <input type="text" placeholder="Categoria/Nome" [(ngModel)]="nome"
                class="border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00ACC1]">
@@ -13,9 +15,15 @@
                class="border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00ACC1]">
         <input type="date" [(ngModel)]="data"
                class="border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00ACC1]">
-        <button (click)="adicionarItem()"
+        <button (click)="adicionarOuEditarItem()"
                 class="bg-[#00ACC1] hover:bg-[#00838F] text-white px-6 py-2 rounded-xl font-semibold">
-          Adicionar
+          {{ editIndex !== null ? 'Salvar' : 'Adicionar' }}
+        </button>
+      </div>
+      <div *ngIf="editIndex !== null" class="mt-2">
+        <button (click)="limparFormulario()"
+                class="bg-gray-300 hover:bg-gray-400 px-6 py-2 rounded-xl font-semibold">
+          Cancelar Edição
         </button>
       </div>
     </div>
@@ -63,7 +71,8 @@
             <td class="p-3">{{ item.nome }}</td>
             <td class="p-3">R$ {{ item.valor }}</td>
             <td class="p-3">{{ item.data }}</td>
-            <td class="p-3">
+            <td class="p-3 space-x-2">
+              <button (click)="editarItem(i)" class="text-blue-600 hover:underline">Editar</button>
               <button (click)="removerItem(i)" class="text-red-600 hover:underline">Remover</button>
             </td>
           </tr>
