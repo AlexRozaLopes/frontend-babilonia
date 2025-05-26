@@ -3,32 +3,78 @@
 
     <h1 class="text-3xl font-bold text-[#4E342E] mb-6">Controle Financeiro</h1>
 
-    <!-- Tabela -->
+    <!-- 🟧 Formulário -->
     <div class="bg-white p-6 rounded-2xl shadow-md mb-8">
-      <h2 class="text-xl font-semibold text-[#00ACC1] mb-4">Seus Registros</h2>
+      <h2 class="text-xl font-semibold text-[#00ACC1] mb-4">Adicionar Gasto</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <input type="text" placeholder="Categoria/Nome" [(ngModel)]="nome"
+               class="border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00ACC1]">
+        <input type="number" placeholder="Valor (R$)" [(ngModel)]="valor"
+               class="border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00ACC1]">
+        <input type="date" [(ngModel)]="data"
+               class="border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00ACC1]">
+        <button (click)="adicionarItem()"
+                class="bg-[#00ACC1] hover:bg-[#00838F] text-white px-6 py-2 rounded-xl font-semibold">
+          Adicionar
+        </button>
+      </div>
+    </div>
+
+    <!-- 🟨 Filtros -->
+    <div class="bg-white p-6 rounded-2xl shadow-md mb-8">
+      <h2 class="text-xl font-semibold text-[#00ACC1] mb-4">Filtros</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <input type="text" placeholder="Filtrar por Nome/Categoria" [(ngModel)]="filtroNome"
+               class="border border-gray-300 rounded-xl px-4 py-2">
+        <input type="date" [(ngModel)]="filtroData"
+               class="border border-gray-300 rounded-xl px-4 py-2">
+        <input type="number" placeholder="Valor Mínimo" [(ngModel)]="filtroValorMin"
+               class="border border-gray-300 rounded-xl px-4 py-2">
+        <input type="number" placeholder="Valor Máximo" [(ngModel)]="filtroValorMax"
+               class="border border-gray-300 rounded-xl px-4 py-2">
+      </div>
+      <div class="mt-4">
+        <button (click)="atualizarGraficos()"
+                class="bg-[#F4B400] hover:bg-[#e6a900] text-white px-6 py-2 rounded-xl font-semibold">
+          Aplicar Filtros
+        </button>
+        <button (click)="filtroNome='';filtroData='';filtroValorMin=null;filtroValorMax=null;atualizarGraficos()"
+                class="ml-4 bg-gray-300 hover:bg-gray-400 px-6 py-2 rounded-xl font-semibold">
+          Limpar Filtros
+        </button>
+      </div>
+    </div>
+
+    <!-- 🟩 Tabela -->
+    <div class="bg-white p-6 rounded-2xl shadow-md mb-8">
+      <h2 class="text-xl font-semibold text-[#00ACC1] mb-4">Seus Gastos</h2>
       <div class="overflow-x-auto">
         <table class="w-full table-auto">
           <thead class="bg-[#F4B400] text-white">
           <tr>
             <th class="p-3 text-left">Nome</th>
             <th class="p-3 text-left">Valor (R$)</th>
+            <th class="p-3 text-left">Data</th>
+            <th class="p-3 text-left">Ações</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let item of controle" class="border-b hover:bg-[#FFF9E5]">
+          <tr *ngFor="let item of controleFiltrado; let i = index" class="border-b hover:bg-[#FFF9E5]">
             <td class="p-3">{{ item.nome }}</td>
             <td class="p-3">R$ {{ item.valor }}</td>
+            <td class="p-3">{{ item.data }}</td>
+            <td class="p-3">
+              <button (click)="removerItem(i)" class="text-red-600 hover:underline">Remover</button>
+            </td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Gráficos -->
+    <!-- 🟦 Gráficos -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
       <div class="bg-white p-6 rounded-2xl shadow-md">
-        <h2 class="text-xl font-semibold text-[#00ACC1] mb-4">Distribuição dos Gastos</h2>
         <apx-chart
           [series]="donutChartOptions.series"
           [chart]="donutChartOptions.chart"
@@ -39,15 +85,14 @@
       </div>
 
       <div class="bg-white p-6 rounded-2xl shadow-md">
-        <h2 class="text-xl font-semibold text-[#00ACC1] mb-4">Gastos por Categoria</h2>
         <apx-chart
           [series]="barChartOptions.series"
           [chart]="barChartOptions.chart"
           [xaxis]="barChartOptions.xaxis"
-          [title]="barChartOptions.title">
+          [title]="barChartOptions.title"
+          [legend]="barChartOptions.legend">
         </apx-chart>
       </div>
-
     </div>
 
   </div>
