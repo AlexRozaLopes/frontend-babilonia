@@ -1,74 +1,40 @@
-import {Component} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {DatePipe} from '@angular/common';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexTitleSubtitle,
+  ApexLegend, ChartComponent
+} from 'ng-apexcharts';
 
 @Component({
   selector: 'app-controle',
-  imports: [
-    FormsModule,
-    DatePipe
-  ],
+  standalone: true,
+  imports: [CommonModule, ChartComponent],
   templateUrl: './controle.component.html',
-  styleUrl: './controle.component.css'
 })
 export class ControleComponent {
-
-
-  descricao = '';
-  valor: number | null = null;
-  categoria = '';
-  data = '';
-
-  gastos = [
-    {descricao: 'Supermercado', valor: 250, categoria: 'Alimentação', data: '2025-05-10'},
-    {descricao: 'Uber', valor: 45, categoria: 'Transporte', data: '2025-05-11'},
-    {descricao: 'Cinema', valor: 30, categoria: 'Lazer', data: '2025-05-12'},
-    {descricao: 'Farmácia', valor: 90, categoria: 'Saúde', data: '2025-05-13'},
+  controle = [
+    { nome: 'Item 1', valor: 100 },
+    { nome: 'Item 2', valor: 200 },
+    { nome: 'Item 3', valor: 300 }
   ];
 
-  graficoDados: any[] = [];
-
-  colorScheme = {
-    domain: ['#00ACC1', '#F4B400', '#FF7043', '#8D6E63', '#81C784', '#9575CD']
+  donutChartOptions = {
+    series: [44, 55, 41],
+    chart: { type: 'donut' } as ApexChart,
+    labels: ['A', 'B', 'C'],
+    title: { text: 'Donut Chart' } as ApexTitleSubtitle,
+    legend: { position: 'bottom' } as ApexLegend
   };
 
-  constructor() {
-    this.atualizarGrafico();
-  }
-
-  addGasto() {
-    if (this.descricao && this.valor !== null && this.categoria && this.data) {
-      this.gastos.push({
-        descricao: this.descricao,
-        valor: this.valor,
-        categoria: this.categoria,
-        data: this.data
-      });
-
-      this.descricao = '';
-      this.valor = null;
-      this.categoria = '';
-      this.data = '';
-
-      this.atualizarGrafico();
-    }
-  }
-
-  atualizarGrafico() {
-    const resumo: { [key: string]: number } = {};
-
-    this.gastos.forEach(gasto => {
-      if (resumo[gasto.categoria]) {
-        resumo[gasto.categoria] += gasto.valor;
-      } else {
-        resumo[gasto.categoria] = gasto.valor;
-      }
-    });
-
-    this.graficoDados = Object.keys(resumo).map(categoria => ({
-      name: categoria,
-      value: resumo[categoria]
-    }));
-  }
-
+  barChartOptions = {
+    series: [
+      { name: 'Series 1', data: [30, 40, 45, 50, 49, 60] }
+    ] as ApexAxisChartSeries,
+    chart: { type: 'bar', height: 350 } as ApexChart,
+    xaxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] } as ApexXAxis,
+    title: { text: 'Bar Chart' } as ApexTitleSubtitle
+  };
 }

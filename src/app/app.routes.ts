@@ -4,6 +4,7 @@ import {SobreComponent} from './sobre/sobre.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {RecoveryComponent} from './recovery/recovery.component';
+import {ControleComponent} from './controle/controle.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -12,4 +13,5 @@ export const routes: Routes = [
   {path: 'sobre', component: SobreComponent},
   {path: 'cadastro', component: RegisterComponent},
   {path: 'recovery', component: RecoveryComponent},
+  {path: 'controle', component: ControleComponent},
 ];
