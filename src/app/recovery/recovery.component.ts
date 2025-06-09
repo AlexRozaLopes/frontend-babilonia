@@ -33,7 +33,7 @@ export class RecoveryComponent {
         this.snackBar.open(
           'Se este email estiver cadastrado, um link de recuperação foi enviado!',
           '',
-          { duration: 5000, panelClass: ['snackbar-success'] }
+          { duration: 3000, panelClass: ['snackbar-success'] }
         );
       },
       error: (err) => {
@@ -41,7 +41,7 @@ export class RecoveryComponent {
         this.snackBar.open(
           'Erro ao tentar enviar o e-mail. Tente novamente mais tarde.',
           '',
-          { duration: 5000, panelClass: ['snackbar-error'] }
+          { duration: 3000, panelClass: ['snackbar-error'] }
         );
       }
     });
