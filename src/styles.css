@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.snackbar-success {
+  background-color: #4caf50 !important; /* verde sucesso */
+  color: #fff !important;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4); /* sombra leve */
+  border-left: 5px solid #388e3c;
+  border-radius: 4px;
+}
+
+.snackbar-error {
+  background-color: #f44336 !important; /* vermelho erro */
+  color: #fff !important;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(244, 67, 54, 0.4);
+  border-left: 5px solid #c62828;
+  border-radius: 4px;
+}
+
+
