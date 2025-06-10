@@ -4,6 +4,11 @@ const PROXY_CONFIG = [
     target: "http://localhost:8081",
     secure: false,
   },
+  {
+    context: ["/realms"],
+    target: "http://localhost:8080",
+    secure: false,
+  }
 ];
 
 module.exports = PROXY_CONFIG;

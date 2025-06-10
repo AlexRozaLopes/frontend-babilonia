@@ -1,27 +1,58 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   imports: [
+    MatSnackBarModule,
     FormsModule
   ]
 })
 export class RegisterComponent {
+
+  private snackBar = inject(MatSnackBar);
+  private http = inject(HttpClient);
+
+
   name = '';
   email = '';
   password = '';
   confirmPassword = '';
 
   onSubmit() {
+    const payload = {
+      email: this.email,
+      username: this.name,
+      password: this.password,
+    };
+
     if (this.password !== this.confirmPassword) {
-      alert('As senhas não coincidem!');
-      return;
+      this.snackBar.open(
+        'As senhas não coincidem!',
+        '',
+        { duration: 2000, panelClass: ['snackbar-error'] }
+      );
     }
-    console.log('Nome:', this.name);
-    console.log('Email:', this.email);
-    console.log('Senha:', this.password);
-    // Aqui você implementa a lógica de cadastro
+
+    this.http.post('/api/user/add', payload).subscribe({
+      next: () => {
+        this.snackBar.open(
+          'Conta criada com sucesso!',
+          '',
+          { duration: 2000, panelClass: ['snackbar-success'] }
+        );
+      },
+      error: (err) => {
+        console.error(err);
+        this.snackBar.open(
+          'Erro ao tentar criar a conta. Tente novamente mais tarde.',
+          '',
+          { duration: 2000, panelClass: ['snackbar-error'] }
+        );
+      }
+    })
   }
 }
