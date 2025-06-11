@@ -1,10 +1,10 @@
 import {Routes} from '@angular/router';
-import {InicioComponent} from './inicio/inicio.component';
-import {SobreComponent} from './sobre/sobre.component';
-import {LoginComponent} from './login/login.component';
-import {RegisterComponent} from './register/register.component';
-import {RecoveryComponent} from './recovery/recovery.component';
-import {ControleComponent} from './controle/controle.component';
+import {InicioComponent} from './pages/inicio/inicio.component';
+import {SobreComponent} from './pages/sobre/sobre.component';
+import {LoginComponent} from './login/login/login.component';
+import {RegisterComponent} from './login/register/register.component';
+import {RecoveryComponent} from './login/recovery/recovery.component';
+import {ControleComponent} from './pages/controle/controle.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},

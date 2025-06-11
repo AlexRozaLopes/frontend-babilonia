@@ -41,7 +41,7 @@ export class LoginComponent {
       next: (res) => {
         const token = res.access_token;
         localStorage.setItem('token', token);
-        console.log('Login bem-sucedido!');
+        console.log('login bem-sucedido!');
         this.router.navigate(['/inicio']);
       },
       error: (err) => {
