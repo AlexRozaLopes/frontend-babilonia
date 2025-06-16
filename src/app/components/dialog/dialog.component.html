@@ -1,0 +1,24 @@
+<div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
+  <h2 class="text-xl font-semibold text-gray-800 mb-4">
+    {{ data.title }}
+  </h2>
+
+  <div class="text-gray-600 mb-6">
+    <p>{{ data.message }}</p>
+  </div>
+
+  <div class="flex justify-end space-x-3">
+    <button
+      class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+      (click)="onCancel()"
+    >
+      Cancelar
+    </button>
+    <button
+      class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition"
+      (click)="onConfirm()"
+    >
+      Confirmar
+    </button>
+  </div>
+</div>
