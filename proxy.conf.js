@@ -5,6 +5,11 @@ const PROXY_CONFIG = [
     secure: false,
   },
   {
+    context: ["/spent"],
+    target: "http://localhost:8081",
+    secure: false,
+  },
+  {
     context: ["/realms"],
     target: "http://localhost:8080",
     secure: false,
