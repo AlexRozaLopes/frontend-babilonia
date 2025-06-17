@@ -19,8 +19,8 @@ FROM nginx:alpine
 # Remove a configuração padrão do Nginx
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copia sua configuração personalizada do Nginx
-COPY nginx.conf /etc/nginx/conf.d
+# Copia sua configuração personalizada do Nginx (renomeada como default.conf)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copia os arquivos gerados pelo Angular
 COPY --from=build /app/dist/babilonia /usr/share/nginx/html
