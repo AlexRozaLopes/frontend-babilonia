@@ -11,7 +11,7 @@ RUN npm install
 COPY . .
 
 # Executa o build de produção
-RUN npm run build --prod
+RUN npm run build
 
 # Etapa 2: Servir a aplicação com Nginx
 FROM nginx:alpine
@@ -19,7 +19,7 @@ FROM nginx:alpine
 # Remove a configuração padrão do Nginx
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copia sua configuração personalizada do Nginx (renomeada como default.conf)
+# Copia sua configuração personalizada do Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copia os arquivos gerados pelo Angular
